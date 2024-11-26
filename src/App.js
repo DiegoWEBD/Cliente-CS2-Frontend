@@ -19,16 +19,8 @@ function App() {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 
-		const response = await fetch('http://192.168.1.83:3002/auth', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(formData),
-		})
-
 		axios
-			.post('http://192.168.1.83:3002/auth', formData, {
+			.post('http://localhost:3010/auth', formData, {
 				headers: {
 					'Content-Type': 'application/json',
 				},
