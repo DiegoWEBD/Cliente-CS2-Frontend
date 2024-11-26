@@ -18,7 +18,7 @@ function App() {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			const response = await fetch('https://example.com/api/login', {
+			const response = await fetch('http://192.168.1.83:3002/auth', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ function App() {
 	return (
 		<div className="flex items-center justify-center h-[100vh] ">
 			<div className="w-fit bg-white p-4 rounded shadow">
-				<h1 className="text-center font-bold">Iniciar sesión</h1>
+				<h1 className="text-center font-bold mb-3">Iniciar sesión</h1>
 				<form onSubmit={handleSubmit} className="flex flex-col gap-3">
 					<div className="flex flex-col gap-1">
 						<label htmlFor="username">Nombre de usuario</label>
