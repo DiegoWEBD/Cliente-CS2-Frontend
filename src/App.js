@@ -17,24 +17,21 @@ function App() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		try {
-			const response = await fetch('http://192.168.1.83:3002/auth', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(formData),
-			})
+		const response = await fetch('http://192.168.1.83:3002/auth', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(formData),
+		})
 
-			if (response.ok) {
-				const data = await response.json()
-				alert('Login successful: ' + (data.message || 'Welcome!')) // Show success alert
-				setFormData({ username: '', password: '' }) // Clear the form
-			} else {
-				alert('Login failed: ' + response.status) // Show error alert for failed response
-			}
-		} catch (error) {
-			alert('Error during login: ' + error.message) // Show error alert for exceptions
+		setFormData({ username: '', password: '' })
+
+		if (response.ok) {
+			const data = await response.json()
+			alert('Inicio de sesión exitoso!' + '\n' + data.access_token)
+		} else {
+			alert('Credenciales incorrectas: ' + response.status)
 		}
 	}
 
