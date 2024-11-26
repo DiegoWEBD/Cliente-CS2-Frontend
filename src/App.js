@@ -28,12 +28,13 @@ function App() {
 
 			if (response.ok) {
 				const data = await response.json()
-				console.log('Login successful:', data)
+				alert('Login successful: ' + (data.message || 'Welcome!')) // Show success alert
+				setFormData({ username: '', password: '' }) // Clear the form
 			} else {
-				console.error('Login failed:', response.status)
+				alert('Login failed: ' + response.status) // Show error alert for failed response
 			}
 		} catch (error) {
-			console.error('Error during fetch:', error)
+			alert('Error during login: ' + error.message) // Show error alert for exceptions
 		}
 	}
 
