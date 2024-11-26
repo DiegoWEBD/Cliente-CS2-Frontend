@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import axios from 'axios'
 
 function App() {
 	const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ function App() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+
 		const response = await fetch('http://192.168.1.83:3002/auth', {
 			method: 'POST',
 			headers: {
@@ -25,14 +27,25 @@ function App() {
 			body: JSON.stringify(formData),
 		})
 
-		setFormData({ username: '', password: '' })
+		axios
+			.post('http://192.168.1.83:3002/auth', formData, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((response) => response.data)
+			.then((data) =>
+				alert(
+					'Inicio de sesión exitoso!' +
+						'\naccess_token: ' +
+						data.access_token
+				)
+			)
+			.catch((error) =>
+				alert('Error!' + '\n' + error.response.data.error)
+			)
 
-		if (response.ok) {
-			const data = await response.json()
-			alert('Inicio de sesión exitoso!' + '\n' + data.access_token)
-		} else {
-			alert('Credenciales incorrectas: ' + response.status)
-		}
+		setFormData({ username: '', password: '' })
 	}
 
 	return (
